@@ -7,40 +7,48 @@ person *createPerson(int id, char *name, char *address);
 
 int main()
 {
-    printf("-1\n");
     init();
-    printf("-0.5\n");
-    char* name;
-    char* address;
+    char name[25];
+    char address[50];
     strcpy(name, "Snens");
     strcpy(address, "Am Hoterhof 1");
 
-    printf("0\n");
     person *p1 = createPerson(1, name, address);
-    printf("1\n");
     create(p1);
-    printf("2\n");
     person *p1read = read(p1->id);
-    printf("3\n");
     if (p1read != NULL)
         printf("P1 name:  %s\n", p1read->name);
 
-
-    printf("3.5\n");
-    strcpy(name, "Felix Pralle");
+    strcpy(name, "Felix");
     strcpy(address, "Pullerweg 15");
-    person *p2 = createPerson(1, name, address);
-    printf("4\n");
+    person *p2 = createPerson(10, name, address);
     create(p2);
-    printf("5\n");
     person *p2read = read(p2->id);
     if (p2read != NULL)
-        printf("P2 name:  %s", p2read->name);
+        printf("P2 name:  %s\n", p2read->name);
+
+    strcpy(name, "Daniel");
+    strcpy(address, "Am Lindchen 21");
+    person *p3 = createPerson(19, name, address);
+    create(p3);
+    person *p3read = read(p3->id);
+    if (p3read != NULL)
+        printf("P3 address:  %s\n", p3read->address);
+
+    delete(p2->id);
+    p2read = read(p2->id);
+    if (p2read != NULL) {
+        printf("P2 name:  %s\n", p2read->name);
+    } else {printf("P2 not found\n");}
+
+
+    saveToFile();
+
 }
 
-person* createPerson(int id, char *name, char *address)
+person *createPerson(int id, char *name, char *address)
 {
-    person *p;
+    person *p = (person *)malloc(sizeof(person));
     p->id = id;
     p->name = (char *)malloc(strlen(name) + 1);
     p->address = (char *)malloc(strlen(address) + 1);

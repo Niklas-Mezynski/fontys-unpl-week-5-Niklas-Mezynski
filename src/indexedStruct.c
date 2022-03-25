@@ -78,6 +78,20 @@ person *read(int id)
 
 void delete (int id)
 {
+    int hashIndex = hashPersonId(id);
+    for (int i = 0; i < BUCKET_SIZE; i++)
+    {
+        if (indexes[hashIndex][i] != NULL)
+        {
+            if (indexes[hashIndex][i]->id == id)
+            {
+                person *p = indexes[hashIndex][i];
+                free(p->name);
+                free(p->address);
+                indexes[hashIndex][i] = NULL;
+            }
+        }
+    }
 }
 
 int hashPersonId(int id)
@@ -90,4 +104,24 @@ void printPerson(person *person)
     printf("Person id: %d\n", person->id);
     printf("Name: %s\n", person->name);
     printf("Address: %s\n", person->address);
+}
+
+int saveToFile()
+{
+    char *filename = "persistence.txt";
+
+    FILE *filepath = fopen(filename, "w");
+
+    if (filepath == NULL)
+    {
+        printf("Error opening the file %s", filename);
+        return -1;
+    }
+
+    for (int i = 0; i < 420; i++)
+        fprintf(filepath, "This is the line #%d\n", i + 1);
+
+
+    fclose(filepath);
+    return 0;
 }

@@ -23,4 +23,6 @@ void delete(int id);
 
 void printPerson(person* person);
 
+int saveToFile();
+
 #endif
