@@ -10,40 +10,50 @@ int main()
     init();
     char name[25];
     char address[50];
-    strcpy(name, "Snens");
-    strcpy(address, "Am Hoterhof 1");
+    person *p;
 
-    person *p1 = createPerson(1, name, address);
-    create(p1);
-    person *p1read = read(p1->id);
-    if (p1read != NULL)
-        printf("P1 name:  %s\n", p1read->name);
+    printf("1\n");
+    for (int i = 0; i < 99; i++)
+    {
+        snprintf(name, 25, "Some name %d", i);
+        snprintf(address, 50, "Some address %d", i);
+        p = createPerson(i, name, address);
+        create(p);
+    }
+    printf("2\n");
 
-    strcpy(name, "Felix");
-    strcpy(address, "Pullerweg 15");
-    person *p2 = createPerson(10, name, address);
-    create(p2);
-    person *p2read = read(p2->id);
-    if (p2read != NULL)
-        printf("P2 name:  %s\n", p2read->name);
+    // strcpy(name, "Snens");
+    // strcpy(address, "Am Hoterhof 1");
 
-    strcpy(name, "Daniel");
-    strcpy(address, "Am Lindchen 21");
-    person *p3 = createPerson(19, name, address);
-    create(p3);
-    person *p3read = read(p3->id);
-    if (p3read != NULL)
-        printf("P3 address:  %s\n", p3read->address);
+    // person *p1 = createPerson(1, name, address);
+    // create(p1);
+    // person *p1read = read(p1->id);
+    // if (p1read != NULL)
+    //     printf("P1 name:  %s\n", p1read->name);
 
-    delete(p2->id);
-    p2read = read(p2->id);
-    if (p2read != NULL) {
-        printf("P2 name:  %s\n", p2read->name);
-    } else {printf("P2 not found\n");}
+    // strcpy(name, "Felix");
+    // strcpy(address, "Pullerweg 15");
+    // person *p2 = createPerson(10, name, address);
+    // create(p2);
+    // person *p2read = read(p2->id);
+    // if (p2read != NULL)
+    //     printf("P2 name:  %s\n", p2read->name);
 
+    // strcpy(name, "Daniel");
+    // strcpy(address, "Am Lindchen 21");
+    // person *p3 = createPerson(19, name, address);
+    // create(p3);
+    // person *p3read = read(p3->id);
+    // if (p3read != NULL)
+    //     printf("P3 address:  %s\n", p3read->address);
+
+    // delete(p2->id);
+    // p2read = read(p2->id);
+    // if (p2read != NULL) {
+    //     printf("P2 name:  %s\n", p2read->name);
+    // } else {printf("P2 not found\n");}
 
     saveToFile();
-
 }
 
 person *createPerson(int id, char *name, char *address)

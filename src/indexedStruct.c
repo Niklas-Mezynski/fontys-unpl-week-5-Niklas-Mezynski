@@ -88,6 +88,7 @@ void delete (int id)
                 person *p = indexes[hashIndex][i];
                 free(p->name);
                 free(p->address);
+                indexes[hashIndex][i] = (person *)malloc(sizeof(person *));
                 indexes[hashIndex][i] = NULL;
             }
         }
@@ -118,9 +119,28 @@ int saveToFile()
         return -1;
     }
 
-    for (int i = 0; i < 420; i++)
-        fprintf(filepath, "This is the line #%d\n", i + 1);
-
+    //First save all the buckets
+    for (int i = 1; i < INDEX_SIZE; i++)
+    {
+        for (int j = 0; j < BUCKET_SIZE; j++)
+        {
+            if (indexes[i][j] != NULL)
+            {
+                person *p = indexes[i][j];
+                fprintf(filepath, "%d;%s;%s\n", p->id, p->name, p->address);
+            }
+        }
+    }
+    //Then save the overflow
+    fprintf(filepath, "OVERFLOW\n");
+    for (int i = 0; i < OVERFLOW_SIZE; i++)
+    {
+        if (indexes[0][i] != NULL)
+        {
+            person *p = indexes[0][i];
+            fprintf(filepath, "%d;%s;%s\n", p->id, p->name, p->address);
+        }
+    }
 
     fclose(filepath);
     return 0;
